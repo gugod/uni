@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Uni -- Unicode Search</title>
+        <style type="text/css" media="screen">
+            form { margin: 0 0 10px 0; font-size: 150%; }
+            input[name=q] { width: 256px; }
+            .character {
+                width: 128px;
+                height: 128px;
+                float: left;
+                font-size: 11px;
+                color: #ccc;
+            }
+            .character .face {
+                font-family: Symbola, sans-serif;
+                color:#000;
+                width: 84px;
+                height: 84px;
+                font-size: 72px;
+                line-height: 84px;
+                display: block;
+                margin: 0 auto;
+            }
+            .character:hover {
+                color:#000;
+            }
+        </style>
+    </head>
+    <body>
+        <form method="get" action="/">
+            <input type="search" name="q" value="<: $q :>" autofocus placeholder="eg: face">
+            <input type="submit" value="Search">
+        </form>
+
+: for $characters -> $char {
+<div class="character">
+    <span class="face"><: $char[1] :></span>
+    <span class="unicode"><: $char[0] :></span>
+    <span class="name"><: $char[2] :></span>
+</div>
+: }
+
+        <footer>
+            <p>Install <a href="http://users.teilar.gr/~g1951d/">Symbola</a> font for unicode 6.0 emoticons.</p>
+        </footer>
+    </body>
+</html>
