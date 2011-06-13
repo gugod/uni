@@ -4,7 +4,8 @@
         <meta charset="utf-8">
         <title>Uni -- Unicode Search</title>
         <style type="text/css" media="screen">
-            form { margin: 0 0 10px 0; font-size: 150%; }
+            .hint { color: #555 }
+            form { margin: 0 0 10px 0; }
             input[name=q] { width: 256px; }
             .character {
                 width: 128px;
@@ -26,12 +27,14 @@
             .character:hover {
                 color:#000;
             }
+            footer { clear: both; }
         </style>
     </head>
     <body>
         <form method="get" action="/">
-            <input type="search" name="q" value="<: $q :>" autofocus placeholder="eg: face">
+            <input type="search" name="q" value="<: $q :>" autofocus>
             <input type="submit" value="Search">
+            <span class="hint">eg, cat face</span>
         </form>
 
 : for $characters -> $char {
@@ -43,7 +46,10 @@
 : }
 
         <footer>
-            <p>Install <a href="http://users.teilar.gr/~g1951d/">Symbola</a> font for unicode 6.0 emoticons.</p>
+            <p>
+                Made by <a href="http://gugod.org/">@gugod</a>, a derived work from <a href="http://metacpan.org/module/App::Uni">App::Uni</a> by <a href="http://twitter.com/audreyt">@audreyt</a>.
+                Install <a href="http://users.teilar.gr/~g1951d/">Symbola</a> font for unicode 6.0 emoticons.
+            </p>
         </footer>
     </body>
 </html>
