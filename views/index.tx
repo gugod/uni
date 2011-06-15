@@ -39,7 +39,7 @@
 
 : for $characters -> $char {
 <div class="character">
-    <span class="face"><: $char[1] :></span>
+    <span class="face"> <: $char[1] :> </span>
     <span class="unicode"><: $char[0] :></span>
     <span class="name"><: $char[2] :></span>
 </div>
