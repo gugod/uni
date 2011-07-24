@@ -1,5 +1,6 @@
 #!/usr/bin/env perl
 use ExtUtils::MakeMaker;
+use version;
 
 WriteMakefile(
     PREREQ_PM => {
