@@ -15,12 +15,12 @@
                 color: #ccc;
             }
             .character .face {
-                font-family: Symbola, sans-serif;
+                font-family: AppleColorEmoji, Symbola, sans-serif;
                 color:#000;
                 width: 84px;
                 height: 84px;
-                font-size: 72px;
                 line-height: 84px;
+                font-size: 72px;
                 display: block;
                 margin: 0 auto;
             }
