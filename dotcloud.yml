@@ -1,0 +1,8 @@
+uni:
+  type: perl
+  requirements:
+    - Plack::Request
+    - Text::Xslate
+    - File::ShareDir
+    - App::Uni
+
