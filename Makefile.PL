@@ -1,4 +1,5 @@
 #!/usr/bin/env perl
+#
 use ExtUtils::MakeMaker;
 use version;
 
