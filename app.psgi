@@ -3,38 +3,42 @@ use v5.12.0;
 use strict;
 use warnings;
 use utf8;
+use charnames ':full';
 
 use Plack::Request;
 use Plack::Response;
 use Text::Xslate;
 
-use File::ShareDir 'dist_dir';
+my $str = require 'unicore/Name.pl';
+open my $fh, '+<', \$str or die "Cannot open unicore data: $!$/";
 
-{
-    my $dir = dist_dir('App-Uni');
-    my $file = "$dir/UnicodeData.txt";
-    (-f $file and -r $file)
-        or die "Cannot find UnicodeData.txt in $dir";
+sub uni {
+    my $regex = join ' ', @_;
+    utf8::decode($regex);
 
-    sub uni {
-        my $regex = join(' ', @_);
+    my @ret;
 
-        if (length $regex == 1) {
-            $regex = sprintf('(?:%s|%04X)', $regex, ord $regex);
-        }
-
-        my @ret;
-        open my $fh, '<:mmap', $file;
-        for (<$fh>) {
-            if (/$regex/i and my ($code, $name) = /(\w+);([^;]+)/) {
-                push @ret, [$code, chr hex $code, $name]
-                    if [$name, $code] ~~ /$regex/i;
-            }
-        }
-        close $fh;
-
+    if (length $regex == 1 and ord($regex) >= 128) {
+        push @ret, [ord($regex), $regex, charnames::viacode(ord $regex)];
         return @ret;
     }
+
+    seek($fh,0,0);
+
+    while (<$fh>) {
+        chomp;
+        (/$regex/i and /(.+)\t([^;]+)/) or next;
+
+        my ($code, $name) = ($1, $2);
+        ($name =~ /$regex/i or $code =~ /$regex/i) or next;
+
+        next if $code =~ / /; # if we want to avoid named sequences
+        $code =~ s/^0(....)/$1/;
+        my $chr = join q{}, map {; chr hex } split /\s+/, $code;
+        push @ret, [$code, $chr, $name];
+    }
+
+    return @ret;
 }
 
 sub {
@@ -57,3 +61,4 @@ sub {
 
     return $response->finalize;
 };
+

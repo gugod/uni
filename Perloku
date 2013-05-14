@@ -1,0 +1,2 @@
+#!/bin/sh
+plackup --env production --port $PORT ./app.psgi
