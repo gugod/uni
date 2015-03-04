@@ -1,2 +1,3 @@
-requires 'Plack', '1.0000';
-requires 'Text::Xslate', '0.1300';
+requires 'Plack', '1.0034';
+
+requires 'Text::Xslate', '3.3.3';
