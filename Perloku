@@ -1,2 +1,3 @@
 #!/bin/sh
+PATH=/app/vendor/perl-deps/bin:${PATH}
 plackup --env production --port $PORT ./app.psgi
