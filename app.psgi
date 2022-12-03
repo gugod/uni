@@ -1,44 +1,22 @@
 #!/usr/bin/env perl
-# use v5.12.0;
-use strict;
-use warnings;
+use v5.36;
 use utf8;
 use charnames ':full';
 
+use App::Uni;
 use Plack::Request;
 use Plack::Response;
 use Text::Xslate;
 
-my $str = require 'unicore/Name.pl';
-open my $fh, '+<', \$str or die "Cannot open unicore data: $!$/";
+sub uni ($query) {
+    my $chars = App::Uni::chars_by_name([$query], { match_codepoints => 1 });
+    return map { charinfo($_) } @$chars;
+}
 
-sub uni {
-    my $regex = join ' ', @_;
-    utf8::decode($regex);
-
-    my @ret;
-
-    if (length $regex == 1 and ord($regex) >= 128) {
-        push @ret, [ord($regex), $regex, charnames::viacode(ord $regex)];
-        return @ret;
-    }
-
-    seek($fh,0,0);
-
-    while (<$fh>) {
-        chomp;
-        (/$regex/i and /(.+)\t([^;]+)/) or next;
-
-        my ($code, $name) = ($1, $2);
-        ($name =~ /$regex/i or $code =~ /$regex/i) or next;
-
-        next if $code =~ / /; # if we want to avoid named sequences
-        $code =~ s/^0(....)/$1/;
-        my $chr = join q{}, map {; chr hex } split /\s+/, $code;
-        push @ret, [$code, $chr, $name];
-    }
-
-    return @ret;
+sub charinfo ($char) {
+    my $code = ord($char);
+    my $name = charnames::viacode($code);
+    return [$code, $char, $name];
 }
 
 sub {
