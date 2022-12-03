@@ -1,3 +1,0 @@
-#!/bin/sh
-
-perl -Mlocal::lib=/app/vendor/perl-deps -MPlack::Runner -e 'my $runner = Plack::Runner->new; $runner->parse_options(@ARGV); $runner->run' -- ./app.psgi --env production --port $PORT
