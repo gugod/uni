@@ -9,4 +9,4 @@ RUN cpanm --notest --quiet App::cpm && \
 ADD . /app
 
 EXPOSE 8000
-CMD plackup --listen localhost:8000 --env production app.psgi
+CMD plackup --port 8000 -e 'enable "AccessLog"' --env deployment app.psgi
