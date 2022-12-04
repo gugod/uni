@@ -25,7 +25,7 @@ sub {
     my $request = Plack::Request->new($env);
 
     my $q = $request->param("q");
-    utf8::decode($q);
+    utf8::decode($q) if defined $q;
 
     my $characters = [ $q ? uni($q) : () ];
 
