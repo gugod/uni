@@ -4,30 +4,122 @@
         <meta charset="utf-8">
         <title>Uni -- Unicode Search.</title>
         <style type="text/css" media="screen">
-            .hint { color: #555 }
-            form { margin: 0 0 10px 0; }
-            input[name=q] { width: 256px; }
-            .character {
-                width: 128px;
-                height: 128px;
-                float: left;
-                font-size: 11px;
-                color: #ccc;
-            }
-            .character .face {
-                font-family: AppleColorEmoji, Symbola, sans-serif;
-                color:#000;
-                width: 84px;
-                height: 84px;
-                line-height: 84px;
-                font-size: 72px;
-                display: block;
-                margin: 0 auto;
-            }
-            .character:hover {
-                color:#000;
-            }
-            footer { clear: both; }
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    padding-bottom: 60px;
+    line-height: 1.4;
+background: #f9f2f4;
+    color: #292a3b;
+}
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #1e1f2d;
+    color: #eee;
+    padding: 10px;
+}
+footer a {
+    color: #a6b8c0;
+}
+footer p {
+    margin: 0;
+}
+form {
+    padding: 30px 10px;
+    display: grid;
+    grid-template-columns: 300px 90px;
+    gap: 5px;
+    justify-content: center;
+}
+input[type="search"] {
+    font-size: 1.3rem;
+    padding: 5px 10px;
+    border-radius: 30px;
+    border: #7A949F 2px solid;
+    color: #292a3b;
+    width: 100%;
+}
+input[type="submit"] {
+    background: #0b4055;
+    color: #eee;
+    font-size: 1.1rem;
+    padding: 5px 10px;
+    border-radius: 30px;
+    border: #0b4055 2px solid;
+}
+.hint {
+    grid-column-start: span 2;
+    margin-left: 12px;
+    color: #7A949F;
+}
+.character-container {
+    margin: 0 auto 30px;
+    padding: 0 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+    justify-content: center;
+    max-width: 1200px;
+}
+.character {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.character .face {
+    font-family: AppleColorEmoji, Symbola, sans-serif;
+    color: #000;
+    width: 84px;
+    height: 84px;
+    line-height: 84px;
+    font-size: 72px;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+.character .unicode {
+    font-family: monospace;
+    color: #405b65;
+    background-color: #f1f7fa;
+    border-radius: 20px;
+    padding: 2px 8px;
+    margin-bottom: 5px;
+}
+.character .name {
+    font-size: 0.8rem;
+    color: #a6b8c0;
+    align-self: flex-start;
+}
+@media screen and (max-width: 880px) {
+    body {
+        padding-bottom: 80px;
+    }
+}
+@media screen and (max-width: 480px) {
+    body {
+	padding-bottom: 100px;
+    }
+    form {
+	display: flex;
+	flex-direction: column;
+    }
+    input[type="submit"] {
+	order: 3;
+    }
+}
+@media screen and (max-width: 340px) {
+    body {
+	padding-bottom: 120px;
+    }
+}
+          
         </style>
     </head>
     <body>
@@ -37,13 +129,15 @@
             <span class="hint">eg, cat face</span>
         </form>
 
-: for $characters -> $char {
-<div class="character">
-    <span class="face"> <: $char[1] :> </span>
-    <span class="unicode"><: $char[0] :></span>
-    <span class="name"><: $char[2] :></span>
-</div>
-: }
+        <div class="character-container">
+          : for $characters -> $char {
+          <div class="character">
+            <span class="face"> <: $char[1] :> </span>
+            <span class="unicode"><: $char[0] :></span>
+            <span class="name"><: $char[2] :></span>
+          </div>
+          : }
+        </div>
 
         <footer>
             <p>
