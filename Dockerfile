@@ -1,4 +1,4 @@
-FROM docker.io/perl:5.36
+FROM docker.io/perl:5.38
 WORKDIR /app
 
 ADD cpanfile /app/
