@@ -141,8 +141,9 @@ input[type="submit"] {
 
         <footer>
             <p>
-                Made by <a href="http://gugod.org/">@gugod</a>. Uni is a derived work from <a href="http://metacpan.org/module/App::Uni">App::Uni</a> by <a href="http://twitter.com/audreyt">@audreyt</a>.
-                Install <a href="http://users.teilar.gr/~g1951d/">Symbola</a> font for unicode 6.0 emoticons.
+                Made by <a href="http://gugod.org/">@gugod</a>. <a href="https://github.com/gugod/uni">Uni</a> is a derived work from <a href="http://metacpan.org/module/App::Uni">App::Uni</a> by <a href="http://twitter.com/audreyt">@audreyt</a>.
+                Uni finds characters in Unicode 15.0.
+                Powered by Perl 5.38.0.
             </p>
         </footer>
     </body>
